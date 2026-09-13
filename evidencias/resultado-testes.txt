@@ -1,0 +1,15 @@
+> match-cachorros-api@1.0.0 test
+> jest
+
+ PASS  tests/match.test.js (11.236 s)
+  🐶 Suíte de Testes - Dog Match API (Test Harness)
+    √ 1. Deve retornar erro 400 se o JSON do perfil estiver vazio (294 ms)
+    √ 2. Regra Eliminatória: NUNCA deve retornar cachorros indisponíveis (6 ms)
+    √ 3. Match por Localização: Deve filtrar corretamente o estado (10 ms)
+    √ 4. Match Perfeito: Deve cruzar localização e porte (Porte Grande) (5 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        12.788 s
+Ran all test suites.
