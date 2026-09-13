@@ -1,2 +1,0 @@
-# O primeiro test harness usa apenas a biblioteca padrão do Python.
-# Dependências da API real podem ser adicionadas quando o endpoint do SDD for implementado.
