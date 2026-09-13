@@ -5,23 +5,21 @@ const app = express();
 app.use(express.json());
 
 /**
- * GET /api/matches/:dogId
- * Retorna a lista de cachorros compatíveis para match.
- * Contrato: 200 + lista ; 404 se o dogId não existir.
+ * POST /match
+ * Recebe o perfil e preferências do adotante no body (JSON).
+ * Retorna a lista de cachorros compatíveis.
  */
-app.get("/api/matches/:dogId", (req, res) => {
-  const dogId = parseInt(req.params.dogId, 10);
+app.post("/match", (req, res) => {
+  const userProfile = req.body;
 
-  if (Number.isNaN(dogId)) {
-    return res.status(400).json({ message: "dogId deve ser um número." });
+  // Validação básica: garante que o usuário enviou um JSON
+  if (!userProfile || Object.keys(userProfile).length === 0) {
+    return res.status(400).json({ message: "O perfil do usuário é obrigatório no corpo da requisição." });
   }
 
-  const matches = findMatches(dogId);
-
-  if (matches === null) {
-    return res.status(404).json({ message: `Cachorro com id ${dogId} não encontrado.` });
-  }
-
+  // Chama o serviço passando as preferências do humano
+  const matches = findMatches(userProfile);
+  
   return res.status(200).json(matches);
 });
 

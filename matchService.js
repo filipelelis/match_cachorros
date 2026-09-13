@@ -1,3 +1,4 @@
+// Banco de dados simulado 
 const dogs = [
   { id: 1, name: "Rex", size: "medium", location: "SP", availableForMatch: true },
   { id: 2, name: "Bolt", size: "medium", location: "SP", availableForMatch: true },
@@ -6,26 +7,26 @@ const dogs = [
   { id: 5, name: "Mel", size: "medium", location: "SP", availableForMatch: false },
 ];
 
-const SIZE_ORDER = ["small", "medium", "large"];
+function findMatches(userProfile) {
+  return dogs.filter((dog) => {
+    // Regra 1 Eliminatória: O cachorro precisa estar disponível para adoção
+    if (!dog.availableForMatch) {
+      return false;
+    }
 
-function isSizeCompatible(sizeA, sizeB) {
-  const idxA = SIZE_ORDER.indexOf(sizeA);
-  const idxB = SIZE_ORDER.indexOf(sizeB);
-  if (idxA === -1 || idxB === -1) return false;
-  return Math.abs(idxA - idxB) <= 1;
+    // Regra 2: Se o usuário informou uma localização, o cão deve ser do mesmo estado
+    if (userProfile.location && dog.location !== userProfile.location) {
+      return false;
+    }
+
+    // Regra 3: Se o usuário tem preferência de porte, cruzar com o tamanho do cão
+    if (userProfile.preferredSize && dog.size !== userProfile.preferredSize) {
+      return false;
+    }
+
+    // Passou por todas as regras restritivas = Match!
+    return true;
+  });
 }
 
-function findMatches(targetId) {
-  const target = dogs.find((d) => d.id === targetId);
-  if (!target) return null;
-
-  return dogs.filter(
-    (c) =>
-      c.id !== target.id &&
-      c.availableForMatch &&
-      c.location === target.location &&
-      isSizeCompatible(target.size, c.size)
-  );
-}
-
-module.exports = { findMatches, dogs, isSizeCompatible };
+module.exports = { findMatches, dogs };
