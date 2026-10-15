@@ -24,3 +24,23 @@ O projeto está totalmente conteinerizado. Certifique-se de ter o Docker instala
 
 ## 📄 Contrato da API
 O sistema expõe um endpoint `POST /match` que recebe o perfil do usuário e devolve os cães compatíveis. Consulte o arquivo `SPECIFICATION.md` na raiz do repositório para ver as regras de negócio detalhadas e os payloads de entrada/saída.
+
+## 🏗️ Arquitetura da Solução e Defesa do Projeto (ADRs)
+
+Para garantir a escalabilidade, padronização e qualidade do código gerado, a equipa tomou as seguintes Decisões de Arquitetura (Architecture Decision Records - ADRs):
+
+* **ADR 01: Adoção de Node.js com Express**
+  * **Contexto:** Precisávamos de uma API RESTful leve e rápida para processar o algoritmo de *match* entre humanos e cães.
+  * **Decisão:** Optámos pelo ecossistema Node.js devido à sua natureza assíncrona, facilidade de manipulação de JSON (nativo no JavaScript) e vasta documentação.
+* **ADR 02: Testes Automatizados com Jest e Supertest**
+  * **Contexto:** A orquestração por IA tem tendência a gerar regressões ou ignorar regras de negócio.
+  * **Decisão:** Implementámos uma *suite* de testes *end-to-end* (Test Harness) para bater diretamente no *endpoint* da API, garantindo que as regras do `SPECIFICATION.md` são validadas a cada *commit*.
+* **ADR 03: Governança de IA via Spec-Driven Development (SDD)**
+  * **Contexto:** Ferramentas de IA generativa (como o Cursor) podem sofrer "alucinações" ou divergir da arquitetura base.
+  * **Decisão:** Restringimos a autonomia da IA utilizando um ficheiro `.cursorrules`. A IA foi forçada a ler os contratos antes de gerar o código, transformando-a numa assistente de codificação estritamente controlada pela equipa humana (revisores).
+
+## 🤝 Relato de Experiência e Comunicação Técnica
+
+O desenvolvimento deste MVP em grupo foi um excelente exercício de colaboração e governança. O maior desafio inicial foi manter a consistência do código gerado por IA entre diferentes membros da equipa. 
+
+Através da adoção do **Git Flow** (Feature Branches e Pull Requests rigorosos), conseguimos intercetar erros lógicos (como o *endpoint* com verbo HTTP incorreto) e alucinações de *stack* tecnológica (código gerado em Python em vez de Node.js) durante a fase de *Code Review*. O papel da revisão humana provou ser indispensável para garantir a integridade da arquitetura final.
