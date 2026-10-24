@@ -47,7 +47,9 @@ flowchart LR
     A --> R[Motor de Filtros - Localização e Porte]
     T[Jest / Supertest] -.valida.-> R
     T -.valida.-> A
+```
 
+```mermaid
     sequenceDiagram
     participant U as Usuário
     participant API as API Express
