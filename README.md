@@ -39,6 +39,29 @@ Para garantir a escalabilidade, padronização e qualidade do código gerado, a 
   * **Contexto:** Ferramentas de IA generativa (como o Cursor) podem sofrer "alucinações" ou divergir da arquitetura base.
   * **Decisão:** Restringimos a autonomia da IA utilizando um ficheiro `.cursorrules`. A IA foi forçada a ler os contratos antes de gerar o código, transformando-a numa assistente de codificação estritamente controlada pela equipa humana (revisores).
 
+  ## Arquitetura e Fluxo da Aplicação (Mermaid)
+
+```mermaid
+flowchart LR
+    C[Cliente / JSON] --> A[API Node.js - Express]
+    A --> R[Motor de Filtros - Localização e Porte]
+    T[Jest / Supertest] -.valida.-> R
+    T -.valida.-> A
+
+    sequenceDiagram
+    participant U as Usuário
+    participant API as API Express
+    participant M as Motor de Match
+    U->>API: POST /match (JSON com preferências)
+    API->>M: Executa filtros (Disponível, Localização, Porte)
+    alt Match Encontrado
+        M-->>API: Retorna Lista de Cães
+        API-->>U: 200 OK + JSON
+    else Falha na Validação
+        M-->>API: Erro de Payload
+        API-->>U: 400 Bad Request
+    end
+
 ## 🤝 Relato de Experiência e Comunicação Técnica
 
 O desenvolvimento deste MVP em grupo foi um excelente exercício de colaboração e governança. O maior desafio inicial foi manter a consistência do código gerado por IA entre diferentes membros da equipa. 
