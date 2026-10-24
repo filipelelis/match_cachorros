@@ -47,7 +47,9 @@ flowchart LR
     A --> R[Motor de Filtros - Localização e Porte]
     T[Jest / Supertest] -.valida.-> R
     T -.valida.-> A
+```
 
+```mermaid
     sequenceDiagram
     participant U as Usuário
     participant API as API Express
@@ -61,6 +63,7 @@ flowchart LR
         M-->>API: Erro de Payload
         API-->>U: 400 Bad Request
     end
+```
 
 ## 🤝 Relato de Experiência e Comunicação Técnica
 
