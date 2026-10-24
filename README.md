@@ -63,6 +63,7 @@ flowchart LR
         M-->>API: Erro de Payload
         API-->>U: 400 Bad Request
     end
+```
 
 ## 🤝 Relato de Experiência e Comunicação Técnica
 
