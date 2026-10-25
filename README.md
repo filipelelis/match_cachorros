@@ -11,16 +11,27 @@ Uma API RESTful desenvolvida para cruzar o perfil de humanos com característica
 ## 🤖 Orquestração de Inteligência Artificial
 Este projeto utilizou IA de forma orquestrada e governada. Utilizamos o editor **Cursor** guiado estritamente pelas instruções do arquivo `.cursorrules`. Isso garantiu que a IA respeitasse a nossa arquitetura SDD, gerando os endpoints e a lógica de negócios sem desviar dos contratos definidos no `SPECIFICATION.md`.
 
-## 🚀 Como rodar o projeto localmente
+## 🚀 Como rodar o projeto localmente (Guia de Execução)
 
-O projeto está totalmente conteinerizado. Certifique-se de ter o Docker instalado e rode os comandos abaixo na raiz do projeto:
+O projeto está totalmente empacotado utilizando contentores. Certifique-se de ter o Docker e o Docker Compose instalados.
 
-1. **Subir a aplicação:**
-   `docker-compose up -d --build`
-2. **Rodar a suíte de testes:**
-   `docker-compose exec api npm test`
-3. **Derrubar os contêineres:**
-   `docker-compose down`
+**1. Configuração de Variáveis de Ambiente:**
+A aplicação utiliza a porta 8080 por defeito. Se necessitar, pode criar um ficheiro `.env` na raiz do projeto:
+`PORT=8080`
+
+**2. Subir a aplicação (Ambiente Padronizado):**
+Na raiz do projeto, execute o comando único para construir e iniciar o contentor em segundo plano:
+`docker-compose up -d --build`
+
+A API estará disponível em: `http://localhost:8080/match`
+
+**3. Executar o Test Harness e Relatório de Cobertura:**
+Com o contentor a correr, pode acionar a suite de testes aprovada e verificar a cobertura de código executando:
+`docker-compose exec api npm run test:coverage`
+
+**4. Derrubar os contentores:**
+Para parar e remover os contentores, utilize:
+`docker-compose down`
 
 ## 📄 Contrato da API
 O sistema expõe um endpoint `POST /match` que recebe o perfil do usuário e devolve os cães compatíveis. Consulte o arquivo `SPECIFICATION.md` na raiz do repositório para ver as regras de negócio detalhadas e os payloads de entrada/saída.
