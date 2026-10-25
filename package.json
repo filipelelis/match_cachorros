@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "API de match de cachorros",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "jest"
+"scripts": {
+    "start": "node src/index.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "express": "^4.19.2"
