@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../index"); // Importa a nossa API
+const app = require("../src/index"); // Importa a nossa API
 
 describe("🐶 Suíte de Testes - Dog Match API (Test Harness)", () => {
 
